@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "noImplicitAny": false,
     "baseUrl": "./",
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
@@ -42,5 +43,4 @@
   "exclude": [
     "src/public/"
   ],
-  "noImplicitAny": false
 }
