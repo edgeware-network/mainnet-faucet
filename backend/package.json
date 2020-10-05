@@ -6,7 +6,8 @@
     "lint": "tslint --project \"tsconfig.json\"",
     "start": "node -r module-alias/register ./dist",
     "start:dev": "nodemon",
-    "test": "nodemon --config ./spec/nodemon.json"
+    "test": "nodemon --config ./spec/nodemon.json",
+    "prod:start": "pm2-runtime ./dist"
   },
   "nodemonConfig": {
     "watch": [
@@ -45,6 +46,7 @@
     "module-alias": "^2.2.2",
     "morgan": "^1.10.0",
     "nedb": "^1.8.0",
+    "pm2": "^4.5.0",
     "tslib": "^2.0.1",
     "winston": "^3.3.3"
   },
