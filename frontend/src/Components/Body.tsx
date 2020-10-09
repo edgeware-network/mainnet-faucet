@@ -20,9 +20,8 @@ class Body extends Component {
       .then((res) => {
         this.setState({ apiResponse: res }); if (res.msg !== '') { alert(res.msg) }
       }).catch((error) => {
-        error.text().then((errorMessage: any) => {
-          alert(errorMessage)
-        })
+        alert('Error: We are sorry, something went wrong on our side.')
+        console.log(error)
       })));
   }
 
