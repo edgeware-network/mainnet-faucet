@@ -19,6 +19,8 @@ class Body extends Component {
       .then((res) => res.json())
       .then((res) => {
         this.setState({ apiResponse: res }); if (res.msg !== '') { alert(res.msg) }
+      }).catch((error) => {
+        alert(error)
       })));
   }
 
