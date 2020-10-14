@@ -15,7 +15,7 @@ class Body extends Component {
   async callAPI() {
     const { address } = this.state;
     const chain = 'beresheet';
-    trackPromise((fetch(`http://54.164.96.51:9000/api/sendTokens?address=${address}&chain=${chain}`)
+    trackPromise((fetch(`https://faucet.seedcode.io/api/sendTokens?address=${address}&chain=${chain}`)
       .then((res) => res.json())
       .then((res) => {
         this.setState({ apiResponse: res }); if (res.msg !== '') { alert(res.msg) }
