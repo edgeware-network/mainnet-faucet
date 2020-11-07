@@ -1,6 +1,6 @@
 # Edgeware Testnet Faucet - Beresheet 
 
-This project serves as frontend for beresheet faucet you can find the backend [here](https://github.com/nblogist/beresheet-faucet-backend), which can be used to obtain test EDG for development purposes, like deploying contracts.
+This project serves as frontend for beresheet faucet you can find the backend [here](https://github.com/edgeware-builders/beresheet-faucet-backend), which can be used to obtain test EDG for development purposes, like deploying contracts.
 
 ## Pre-requisites
 - An account address on Edgeware
@@ -9,7 +9,7 @@ Currently, the app can be used on https://beresheet-faucet.vercel.app/ , but the
 
 ## Getting Started
 
-Clone this repo ```git clone https://github.com/nblogist/beresheet-faucet-frontend.git```
+Clone this repo ```git clone https://github.com/edgeware-builders/beresheet-faucet-frontend.git```
 
 ### Prerequisites
 
