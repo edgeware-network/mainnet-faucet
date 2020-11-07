@@ -65,7 +65,7 @@ Please submit pull requests to us using the format described while making a pull
 
 * **Furqan Ahmed** - [Contact](https://www.flow.page/FurqanAhmed)
 
-See also the list of [contributors](https://github.com/nblogist/beresheet-faucet-backend/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/edgeware-builders/beresheet-faucet-backend/contributors) who participated in this project.
 
 ## Acknowledgments
 
