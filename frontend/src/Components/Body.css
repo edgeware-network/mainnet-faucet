@@ -5,6 +5,31 @@
   justify-content: center;
 }
 
+.textContainer {
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+}
+
+/* Heart Icon
+--------------------------------------------- */
+
+.site-footer .icon {
+  font-size: 20px;
+}
+
+.site-footer .love .icon {
+  font-size: 12px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 2px;
+}
+
 .box {
   display: flex;
   flex-direction: column;
@@ -44,15 +69,18 @@ input {
   padding: 0.6em 1.45em 0.7em;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: gray;
   opacity: 1; /* Firefox */
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
   color: gray;
 }
 
-::-ms-input-placeholder { /* Microsoft Edge */
+::-ms-input-placeholder {
+  /* Microsoft Edge */
   color: gray;
 }

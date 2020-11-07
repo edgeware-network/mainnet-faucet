@@ -1,44 +1,63 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Edgeware Testnet Faucet - Beresheet 
 
-## Available Scripts
+This project serves as frontend for beresheet faucet you can find the backend [here](https://github.com/nblogist/beresheet-faucet-backend), which can be used to obtain test EDG for development purposes, like deploying contracts.
 
-In the project directory, you can run:
+## Pre-requisites
+- An account address on Edgeware
 
-### `yarn start`
+Currently, the app can be used on https://beresheet-faucet.vercel.app/ , but the domain is likely to change and shall be updated here.
 
-Runs the app in the development mode.<br />
+## Getting Started
+
+Clone this repo ```git clone https://github.com/nblogist/beresheet-faucet-frontend.git```
+
+### Prerequisites
+
+You'll need the backend running along side with the frontend.
+
+### Installing
+
+To successfully run the frontend:
+
+Install dependencies using ```yarn```
+
+```
+yarn
+```
+
+Run the app in the development mode
+
+```
+yarn start
+```
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+To build the app for production:
+```
+yarn build
+```
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
+Builds the app for production to the `build` folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
+The build is minified and the filenames include the hashes.
+The app is now ready to be deployed!
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Built With
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* [TypeScript](https://www.typescriptlang.org/) - Typed JavaScript at Any Scale.
+* [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+* [NeDB](https://github.com/louischatriot/nedb) - A Lightweight JavaScript Database
 
-### `yarn eject`
+## Contributing
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Please submit pull requests to us using the format described while making a pull request.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Authors
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* **Furqan Ahmed** - [Contact](https://www.flow.page/FurqanAhmed)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+See also the list of [contributors](https://github.com/nblogist/beresheet-faucet-frontend/contributors) who participated in this project.
 
-## Learn More
+## Acknowledgments
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+* [Drew Stone](https://github.com/drewstone/)
