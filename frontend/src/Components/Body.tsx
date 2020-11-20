@@ -55,7 +55,7 @@ class Body extends Component {
           /> */}
           <p className="textContainer">Made with ❤️ by <a href="https://flow.page/FurqanAhmed" target="_blank"> Furqan </a> - Powered by <a href="https://github.com/edgeware-builders" target="_blank"> Edgeware Builders </a></p>
         </div>
-        <ForkMeOnGithub repo="https://github.com/nblogist/beresheet-faucet-frontend" />
+        <ForkMeOnGithub repo="https://github.com/edgeware-builders/beresheet-faucet-frontend" />
       </div >
     );
   }
