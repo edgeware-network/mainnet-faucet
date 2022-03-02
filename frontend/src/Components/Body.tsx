@@ -11,7 +11,7 @@ export default function Body(props){
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(false);
   const limit = 10;
-  
+  const faucetAddress = 'n881YjFMbhqx6sZtQXqJdVBzS3wfRrdZzK55HJ8Z6beMJr6';
   function callAPI() {
     if(loading)
       return;
@@ -53,7 +53,7 @@ export default function Body(props){
   }
 
   function copyToClipboard() {
-    navigator.clipboard.writeText('n881YjFMbhqx6sZtQXqJdVBzS3wfRrdZzK55HJ8Z6beMJr6');
+    navigator.clipboard.writeText(faucetAddress);
   }
 
   function getFaucetBalance() {
@@ -102,7 +102,7 @@ export default function Body(props){
               </div>
               <div className='faucetAddressContainer'>
                 <div className='faucetAddress'>
-                  n881YjFMbhqx6sZtQXqJdVBzS...
+                  {faucetAddress}
                 </div>
                 <div className='copyIconContainer'>
                   <img className='copyIcon' src={copyIcon} alt="copy" onClick={copyToClipboard}/>

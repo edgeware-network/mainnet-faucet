@@ -236,6 +236,9 @@ body {
   color: #757575;
   font-size: 15;
   font-weight: bold;
+  width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .copyIconContainer {
