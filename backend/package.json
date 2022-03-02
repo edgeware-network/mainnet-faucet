@@ -2,7 +2,6 @@
   "name": "api",
   "version": "0.0.0",
   "scripts": {
-    "build": "tsc --build tsconfig.json",
     "lint": "tslint --project \"tsconfig.json\"",
     "start": "nodemon",
     "start:dev": "nodemon",
