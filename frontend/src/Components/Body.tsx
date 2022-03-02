@@ -44,6 +44,7 @@ export default function Body(props) {
           setAddress('');
           setAmount('');
           setLoading(false);
+          getFaucetBalance();
         }),
     );
   }
