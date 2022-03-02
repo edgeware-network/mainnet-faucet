@@ -21,10 +21,8 @@ function changeAddressEncoding(address, toNetworkPrefix=42){
 
 function checkAmount(amount) {
     const MAX_EDG = (process.env.MAX_EDG || 10);
-    amount = parseInt(amount);
-    if(amount == undefined) {
-        return {checkAmountMessage: "Valid", checkAmountIsValid: true, validAmount: 1}
-    } else if(isNaN(amount)) {
+    amount = Number(amount);
+    if(isNaN(amount)) {
         return {checkAmountMessage: "Amount should be number!", checkAmountIsValid: false}
     } else if(amount <= 0 || amount > MAX_EDG) {
         return {checkAmountMessage: `Amount should be within 0 and ${MAX_EDG}`, checkAmountIsValid: false}
