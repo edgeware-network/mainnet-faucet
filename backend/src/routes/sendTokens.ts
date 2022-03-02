@@ -19,14 +19,28 @@ function changeAddressEncoding(address, toNetworkPrefix=42){
     return keyring.encodeAddress(pubKey, toNetworkPrefix);
 }
 
+function checkAmount(amount) {
+    const MAX_EDG = (process.env.MAX_EDG || 10);
+    amount = parseInt(amount);
+    if(amount == undefined) {
+        return {checkAmountMessage: "Valid", checkAmountIsValid: true, validAmount: 1}
+    } else if(isNaN(amount)) {
+        return {checkAmountMessage: "Amount should be number!", checkAmountIsValid: false}
+    } else if(amount <= 0 || amount > MAX_EDG) {
+        return {checkAmountMessage: `Amount should be within 0 and ${MAX_EDG}`, checkAmountIsValid: false}
+    } else {
+        return {checkAmountMessage: "Valid", checkAmountIsValid: true, validAmount: amount}
+    }
+}
+
 router.get('/', async (req: any, res: Response, next: NextFunction) => {
     const address = changeAddressEncoding(req.query.address.toString());
-    let { chain } = req.query;
+    let { chain, amount } = req.query;
+
     const sender = req.ipInfo.ip;
     const URL_TEST_NET = process.env.URL_TEST_NET || 'ws://beresheet1.edgewa.re:9944';
-    console.log({URL_TEST_NET})
     const tokenDecimals = Number(process.env.TOKEN_DECIMALS) || 18;
-    const amount = Number(process.env.TOKENS_TO_PAY_PER_REQUEST) || 10;
+    
     const limit = Number(process.env.REQUEST_LIMIT) || 3;
     const mnemonic = process.env.FAUCET_ACCOUNT_MNEMONIC?.toString();
     const wsProvider = new WsProvider(URL_TEST_NET);
@@ -59,9 +73,7 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
     for (let x = 1; x < tokenDecimals; x++) { tmpTokeInDecimals += '0' } // ADDING 0'S FOR CONVERSION
 
     async function run() {
-        console.log("run called", {sending: amount})
         const api = await ApiPromise.create({ provider: wsProvider });
-        console.log("ch1")
 
         await cryptoWaitReady();
         const transferValue = amount.toString() + tmpTokeInDecimals // tEDG to EDG
@@ -78,7 +90,7 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
                         .signAndSend(account);
                     await storage.saveData(sender, address, chain);
                     let bal: any = await api.query.system.account(account.address)
-                    console.log(`Remaining balance in Faucet ${bal.data.free.toHuman()}`);
+                    console.log(`Remaining balance in Faucet ${account.address} ${bal.data.free.toHuman()}`);
                     return txHash
                 }
                 else {
@@ -93,17 +105,22 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
     if (!allowed) {
         res.json({ trxHash: -1, msg: 'You have reached your limit for now.\n Please try again later' });
     } else {
-        // console.log({networkPrefix, checkAddress: checkAddress(address, networkPrefix)})
-        if (address && checkAddress(address.toString(), networkPrefix)[0]) {
-            const hash = await run();
-            if (hash === -1) {
-                res.json({ trxHash: hash, msg: `Sorry the faucet ran out of test EDG` });
-
+        const { checkAmountMessage, checkAmountIsValid, validAmount } = checkAmount(amount);
+        if (checkAmountIsValid) {
+            amount = validAmount;
+            if (address && checkAddress(address.toString(), networkPrefix)[0]) {
+                const hash = await run();
+                if (hash === -1) {
+                    res.json({ trxHash: hash, msg: `Sorry the faucet ran out of test EDG` });
+    
+                } else {
+                    res.json({ trxHash: hash, msg: `${amount} tEDG transferred to ${address}` });
+                }
             } else {
-                res.json({ trxHash: hash, msg: `${amount} tEDG transferred to ${address}` });
+                res.json({ trxHash: -1, msg: 'Address not valid against the chain' })
             }
         } else {
-            res.json({ trxHash: -1, msg: 'Address not valid against the chain' })
+            res.status(500).send({msg: checkAmountMessage})
         }
     }
 });
