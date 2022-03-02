@@ -10,13 +10,9 @@ export default function Body(props) {
   const [address, setAddress] = useState('');
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(false);
-  const [faucetBalance, setFaucetBalance] = useState(0);
-  const limit = 10;
-  const faucetAddress = 'n881YjFMbhqx6sZtQXqJdVBzS3wfRrdZzK55HJ8Z6beMJr6';
-
-  useEffect(() => {
-    getFaucetBalance();
-  }, []);
+  const [faucetBalance, setFaucetBalance] = useState('0 tEDG');
+  const [limit, setLimit] = useState(10);
+  const [faucetAddress, setFaucetAddress] = useState('5FqJAzaUYtPFYKeo7mRKweTfLCQKKdeHgNft7eRSgcPV1fXq');
 
   function callAPI() {
     if (loading) return;
@@ -32,7 +28,7 @@ export default function Body(props) {
     const chain = 'beresheet';
     trackPromise(
       fetch(
-        `https://faucet.seedcode.io/api/sendTokens?address=${address}&chain=${chain}&amount=${amount}`,
+        `https://beresheet-faucet.herokuapp.com/api/sendTokens?address=${address}&chain=${chain}&amount=${amount}`,
       )
         .then((res) => res.json())
         .then((res) => {
@@ -68,17 +64,25 @@ export default function Body(props) {
     navigator.clipboard.writeText(faucetAddress);
   }
 
-  function getFaucetBalance() {
-    trackPromise(
-      fetch('')
+  async function getFaucetBalance() {
+    console.log("Faucet balance");
+    
+    await fetch('https://beresheet-faucet.herokuapp.com/api/faucetinfo')
+        .then((res) => res.json())
         .then((res: any) => {
           setFaucetBalance(res.balance ? res.balance : 0);
+          setFaucetAddress(res.address ? res.address : faucetAddress);
+          setLimit(res.max ? res.max : 10);
+          console.log(res.balance, res.address, res.max)
         })
         .catch((err) => {
           console.log(err);
-        }),
-    );
+        });
   }
+
+  useEffect(() => {
+    getFaucetBalance();
+  }, []);
 
   return (
     <div className="pageBackground">
@@ -120,7 +124,7 @@ export default function Body(props) {
           <div className="lowerContainer">
             <div className="faucetBalance">
               Faucet Balance:
-              <div className="balanceValue">{faucetBalance + ' EDG'}</div>
+              <div className="balanceValue">{faucetBalance}</div>
             </div>
             <div className="note">
               To keep this faucet alive, you can donate your excess tokens on
