@@ -188,13 +188,13 @@ body {
   width: 17px;
   height: 24px;
   bottom: -3px;
-  left: 105px;
+  left: 107px;
 }
 
 .tooltipText {
   position: absolute;
   top: 25px;
-  left: -114px;
+  left: -113px;
   color: #ACACAC;
   font-size: 12px;
   letter-spacing: 9%;
@@ -251,4 +251,25 @@ body {
 .copyIcon:active {
   width: 31px;
   height: 39px;
+}
+
+.loader {
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #363b3d;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
