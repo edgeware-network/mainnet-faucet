@@ -1,3 +1,8 @@
+body {
+  overflow-x: hidden;
+  background-color: #1A1A1C;
+}
+
 .boxContainer {
   min-height: 100vh;
   display: flex;
@@ -12,75 +17,238 @@
   width: 100%;
 }
 
-/* Heart Icon
---------------------------------------------- */
-
-.site-footer .icon {
-  font-size: 20px;
-}
-
-.site-footer .love .icon {
-  font-size: 12px;
-  margin-left: 2px;
-  margin-right: 2px;
-}
-
-.bottom {
-  position: fixed;
-  bottom: 2px;
-}
-
 .box {
   display: flex;
   flex-direction: column;
-  height: 230px;
-  width: 300px;
-  background: #fff;
-  padding: 13px;
-  border-radius: 25px;
+  height: 550px;
+  max-width: 400px;
+  width: 80%;
+  background: #222222;
+  border-radius: 20px;
   position: relative;
   text-align: center;
 }
 
-body {
-  background: #f3eded;
-  overflow-x: hidden;
+.upperContainer {
+  width: 100%;
+  height: 60%;
 }
 
-.btn_Submit {
-  height: 45px;
-  border-radius: 10px;
-  color: #987f69;
-  font-weight: bold;
-  font-size: medium;
-  background-color: #e5ddd7;
-  border: 1px solid #f3eded;
-  margin-top: auto;
+.headerContainer {
+  margin: 13px 13px 0px 13px;
+  width: 100%;
+  height: 18%;
+  align-items: center;
+  display: flex;
 }
 
-input {
-  background: #fff;
-  color: #525865;
-  border-radius: 6px;
-  border: 1px solid #d1d1d1;
-  box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.07);
+.logo {
+  height: 50px;
+  width: 50px;
+  border-radius: 48px;
+  margin-left: 40px;
+}
+
+.header {
+  font-size: 22px;
+  color: #FFFFFF;
+  margin-left: 18px;
+}
+
+.inputFormContainer {
+  width: 100%;
+  height: 82%;
+  padding: 0 10%;
+}
+
+.input {
+  width: 100%;
+  margin-top: 10%;
+  background-color: #2E3234;
+  border: 2px solid #2E3234;
+  color: #FFFFFF;
+  border-radius: 8px;
   font-size: 1em;
-  outline: none;
   padding: 0.6em 1.45em 0.7em;
+  
+}
+
+.input:focus {
+  outline-width: 0;
+  border: 2px solid #363b3d;
+}
+
+.field {
+  position: relative;
+}
+
+.maxButton {
+  position: absolute;
+  right: 15px;
+  color: rgba(255,255,255, 79%);
+  font-weight: 600;
+  top: 54%;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.maxButton:hover {
+  font-weight: 700;
+  color: #ecebeb;
+}
+
+.maxButton:active {
+  font-size: 17px;
+}
+
+.submitButton {
+  width: 50%;
+  margin: auto;
+  margin-top: 10%;
+  height: 40px;
+  color: #FFFFFF;
+  background-color: #FF3B80;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  font-weight: 900;
+}
+
+.submitButton:active {
+  color: #ecebeb;
+  font-size: 15px;
 }
 
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: gray;
+  color: #FFFFFF;
+  font-size: 15px;
   opacity: 1; /* Firefox */
 }
 
 :-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: gray;
+  color: #FFFFFF;
+  font-size: 15px;
 }
 
 ::-ms-input-placeholder {
   /* Microsoft Edge */
   color: gray;
+  color: #FFFFFF;
+  font-size: 15px;
+}
+
+.lowerContainer {
+  width: 100%;
+  height: 40%;
+  background-color: #393939;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px ;
+  padding: 15px 20px 0px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.faucetBalance {
+  width: 100%;
+  font-size: 15px;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.balanceValue {
+  font-size: 15px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.note {
+  width: 100%;
+  font-size: 12px;
+  margin-top: 4%;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: flex-start;
+  text-align: initial;
+  position: relative;
+}
+
+.infoIcon {
+  position: absolute;
+  width: 17px;
+  height: 24px;
+  bottom: -3px;
+  left: 105px;
+}
+
+.tooltipText {
+  position: absolute;
+  top: 25px;
+  left: -114px;
+  color: #ACACAC;
+  font-size: 12px;
+  letter-spacing: 9%;
+  line-height: 21px;
+  background-color: rgba(3 ,3, 3, 88%);
+  padding: 10px;
+  border-radius: 10px;
+  visibility: hidden;
+  max-height: 130px;
+  width: fit-content;
+  display: flex;
+  max-width: 377px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.textWrap {
+  width: 377px;
+}
+
+.infoIcon:hover .tooltipText {
+  opacity: 1;
+  visibility: visible;
+}
+
+.faucetAddressContainer {
+  width: 100%;
+  background-color: #FFFFFF;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin-top: 10%;
+  border-radius: 8px;
+  justify-content: space-between;
+}
+
+.faucetAddress {
+  padding-left: 20px;
+  color: #757575;
+  font-size: 15;
+  font-weight: bold;
+}
+
+.copyIconContainer {
+  width: 15%;
+}
+
+.copyIcon {
+  cursor: pointer;
+  width: 33px;
+  height: 41px;
+}
+
+.copyIcon:active {
+  width: 31px;
+  height: 39px;
 }

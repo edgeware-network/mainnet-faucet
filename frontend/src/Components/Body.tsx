@@ -4,7 +4,9 @@ import MadeWithLove from 'react-made-with-love';
 import ForkMeOnGithub from 'fork-me-on-github';
 import { LoadingSpinnerComponent } from '../index';
 import './Body.css';
-
+import logo from "../assets/logo.png";
+import infoIcon from "../assets/Info.png";
+import copyIcon from "../assets/copy.png";
 class Body extends Component {
   state = {
     apiResponse: { trxHash: '', msg: '' },
@@ -35,10 +37,61 @@ class Body extends Component {
     setTimeout(() => this.setState({ apiResponse: { trxHash: '', msg: '' } }), 10000);
   }
 
+  copyToClipboard() {
+    navigator.clipboard.writeText('n881YjFMbhqx6sZtQXqJdVBzS3wfRrdZzK55HJ8Z6beMJr6');
+  }
+
   render() {
     return (
-      <div>
-        <div className="boxContainer">
+      <div className='pageBackground'>
+        <div className='boxContainer'>
+          <div className='box'>
+            <div className='upperContainer'>
+              <div className='headerContainer'>
+                <img className='logo' src={logo}/>
+                <div className='header'>Beresheet Faucet</div>
+              </div>
+              <div className='inputFormContainer'>
+                <div className='field'>
+                  <input className='input' placeholder='Amount' id='Amount'></input>
+                  <div className='maxButton'> MAX </div>
+                </div>
+                <div className='field'>
+                  <input className='input' placeholder='Address' id='Address'></input>
+                </div>
+                <div className='submitButton'>
+                  Request EDG
+                </div>
+              </div>
+            </div>
+            <div className='lowerContainer'>
+              <div className='faucetBalance'>
+                Faucet Balance: 
+                <div className='balanceValue'>250 EDG</div>
+              </div>
+              <div className='note'> 
+                To keep this faucet alive, you can donate your excess tokens on the below address.
+                <div className='infoIcon'>
+                  <img className='icon' src={infoIcon}/>
+                  <div className='tooltipText'>
+                    <span className='textWrap'>
+                      This faucet is powered by the <b>EDGEWARE</b> community, and constantly need support from the community. If you have unused <b>EDG</b> tokens on your <b>Beresheet</b> wallet, then please donate the excess amount to the below address. <b>Thank you for using this faucet!</b>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className='faucetAddressContainer'>
+                <div className='faucetAddress'>
+                  n881YjFMbhqx6sZtQXqJdVBzS...
+                </div>
+                <div className='copyIconContainer'>
+                  <img className='copyIcon' src={copyIcon} onClick={this.copyToClipboard}/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <div className="boxContainer">
           <div className="box">
             <h4>Beresheet Faucet</h4>
             <label style={{ marginTop: "auto" }}>Enter Wallet Address</label>
@@ -52,10 +105,12 @@ class Body extends Component {
             by="Furqan"
             emoji
             link='https://flow.page/FurqanAhmed'
-          /> */}
-          <p className="textContainer">Made with ❤️ by <a href="https://flow.page/FurqanAhmed" target="_blank"> Furqan </a> - Powered by <a href="https://github.com/edgeware-builders" target="_blank"> Edgeware Builders </a></p>
+          />*/}
+          {/* <p className="textContainer">Made with ❤️ by <a href="https://flow.page/FurqanAhmed" target="_blank"> Furqan </a> - Powered by <a href="https://github.com/edgeware-builders" target="_blank"> Edgeware Builders </a></p>
         </div>
-        <ForkMeOnGithub repo="https://github.com/edgeware-builders/beresheet-faucet-frontend" />
+        <ForkMeOnGithub repo="https://github.com/edgeware-builders/beresheet-faucet-frontend" />  */}
+
+
       </div >
     );
   }
