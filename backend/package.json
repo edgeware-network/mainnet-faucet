@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@edgeware/node-types": "^2.4.5",
-    "@polkadot/api": "^2.1.1",
+    "@polkadot/api": "^7.9.1",
     "@types/cors": "^2.8.7",
     "@types/nedb": "^1.8.11",
     "command-line-args": "^5.1.1",

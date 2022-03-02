@@ -9,18 +9,27 @@ const router = express.Router();
 router.use(expressip().getIpInfoMiddleware);
 config();
 const storage = new Storage();
+const keyring = new Keyring({ type: 'sr25519' });
+
+function changeAddressEncoding(address, toNetworkPrefix=42){
+    if(!address){
+        return null;
+    }
+    const pubKey = keyring.decodeAddress(address);
+    return keyring.encodeAddress(pubKey, toNetworkPrefix);
+}
 
 router.get('/', async (req: any, res: Response, next: NextFunction) => {
-    const { address } = req.query;
+    const address = changeAddressEncoding(req.query.address.toString());
     let { chain } = req.query;
     const sender = req.ipInfo.ip;
     const URL_TEST_NET = process.env.URL_TEST_NET || 'ws://beresheet1.edgewa.re:9944';
+    console.log({URL_TEST_NET})
     const tokenDecimals = Number(process.env.TOKEN_DECIMALS) || 18;
     const amount = Number(process.env.TOKENS_TO_PAY_PER_REQUEST) || 10;
     const limit = Number(process.env.REQUEST_LIMIT) || 3;
     const mnemonic = process.env.FAUCET_ACCOUNT_MNEMONIC?.toString();
     const wsProvider = new WsProvider(URL_TEST_NET);
-    const keyring = new Keyring({ type: 'sr25519' });
 
     let networkPrefix;
     chain = chain?.toString().toLowerCase();
@@ -50,7 +59,10 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
     for (let x = 1; x < tokenDecimals; x++) { tmpTokeInDecimals += '0' } // ADDING 0'S FOR CONVERSION
 
     async function run() {
+        console.log("run called", {sending: amount})
         const api = await ApiPromise.create({ provider: wsProvider });
+        console.log("ch1")
+
         await cryptoWaitReady();
         const transferValue = amount.toString() + tmpTokeInDecimals // tEDG to EDG
         let account;
@@ -58,13 +70,14 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
 
         try {
             if (address && account) {
-                let bal = await api.query.system.account(account.address)
+                let bal: any = await api.query.system.account(account.address)
+                console.log({MyBalance: bal.data.free})
                 if (Number(bal.data.free) > 0) {
                     const txHash = await api.tx.balances
                         .transfer(address.toString(), transferValue)
                         .signAndSend(account);
                     await storage.saveData(sender, address, chain);
-                    let bal = await api.query.system.account(account.address)
+                    let bal: any = await api.query.system.account(account.address)
                     console.log(`Remaining balance in Faucet ${bal.data.free.toHuman()}`);
                     return txHash
                 }
@@ -80,6 +93,7 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
     if (!allowed) {
         res.json({ trxHash: -1, msg: 'You have reached your limit for now.\n Please try again later' });
     } else {
+        // console.log({networkPrefix, checkAddress: checkAddress(address, networkPrefix)})
         if (address && checkAddress(address.toString(), networkPrefix)[0]) {
             const hash = await run();
             if (hash === -1) {

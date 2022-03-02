@@ -39,8 +39,8 @@
   "include": [
     "src/**/*.ts",
     "spec/**/*.ts"
-  ],
+, "src/routes/sendTokens.js"  ],
   "exclude": [
-    "src/public/"
+    "src/public/",
   ],
 }
