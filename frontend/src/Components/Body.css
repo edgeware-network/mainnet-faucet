@@ -177,18 +177,19 @@ body {
   font-size: 12px;
   margin-top: 4%;
   color: #FFFFFF;
-  display: flex;
-  justify-content: flex-start;
   text-align: initial;
-  position: relative;
 }
 
 .infoIcon {
-  position: absolute;
   width: 17px;
   height: 24px;
-  bottom: -3px;
-  left: 107px;
+  display: inline-block;
+  margin: 0px 0px 2px 4px;
+  position: relative;
+}
+
+.icon {
+  margin: -2px 0px 0px 0px;
 }
 
 .tooltipText {
@@ -234,7 +235,7 @@ body {
 .faucetAddress {
   padding-left: 20px;
   color: #757575;
-  font-size: 15;
+  font-size: 15px;
   font-weight: bold;
   width: 250px;
   overflow: hidden;

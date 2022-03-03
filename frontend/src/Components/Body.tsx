@@ -66,15 +66,12 @@ export default function Body(props) {
   }
 
   async function getFaucetBalance() {
-    console.log("Faucet balance");
-    
     await fetch('https://beresheet-faucet.herokuapp.com/api/faucetinfo')
         .then((res) => res.json())
         .then((res: any) => {
           setFaucetBalance(res.balance ? res.balance : 0);
           setFaucetAddress(res.address ? res.address : faucetAddress);
           setLimit(res.max ? res.max : 10);
-          console.log(res.balance, res.address, res.max)
         })
         .catch((err) => {
           console.log(err);
