@@ -13,6 +13,7 @@ export default function Body(props) {
   const [faucetBalance, setFaucetBalance] = useState('0 tEDG');
   const [limit, setLimit] = useState(10);
   const [faucetAddress, setFaucetAddress] = useState('5FqJAzaUYtPFYKeo7mRKweTfLCQKKdeHgNft7eRSgcPV1fXq');
+  const [loadingBalance, setLoadingBalance] = useState(false);
 
   function callAPI() {
     if (loading) return;
@@ -69,6 +70,7 @@ export default function Body(props) {
   }
 
   async function getFaucetBalance() {
+    setLoadingBalance(true);
     await fetch('https://beresheet-faucet.herokuapp.com/api/faucetinfo')
         .then((res) => res.json())
         .then((res: any) => {
@@ -78,6 +80,9 @@ export default function Body(props) {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          setLoadingBalance(false);
         });
   }
 
@@ -125,7 +130,7 @@ export default function Body(props) {
           <div className="lowerContainer">
             <div className="faucetBalance">
               Faucet Balance:
-              <div className="balanceValue">{faucetBalance}</div>
+              <div className="balanceValue">{loadingBalance ? <div className='loader'></div>: faucetBalance}</div>
             </div>
             <div className="note">
               To keep this faucet alive, you can donate your excess tokens on
