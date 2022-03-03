@@ -12,18 +12,23 @@ const storage = new Storage();
 const keyring = new Keyring({ type: 'sr25519' });
 
 function changeAddressEncoding(address, toNetworkPrefix=42){
-    if(!address){
+    if(!address) {
         return null;
     }
     const pubKey = keyring.decodeAddress(address);
-    return keyring.encodeAddress(pubKey, toNetworkPrefix);
+    const encodedAddress = keyring.encodeAddress(pubKey, toNetworkPrefix);
+
+    if(encodedAddress == process.env.ADDRESS) {
+        return null;
+    }
+    return encodedAddress;
 }
 
 function checkAmount(amount) {
     const MAX_EDG = (process.env.MAX_EDG || 10);
     amount = Number(amount);
     if(isNaN(amount)) {
-        return {checkAmountMessage: "Amount should be number!", checkAmountIsValid: false}
+        return {checkAmountMessage: "Amount should be a number!", checkAmountIsValid: false}
     } else if(amount <= 0 || amount > MAX_EDG) {
         return {checkAmountMessage: `Amount should be within 0 and ${MAX_EDG}`, checkAmountIsValid: false}
     } else {
@@ -66,25 +71,21 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
     // put checks here according to IP address and address requesting
     const allowed = await storage.isValid(sender, address, chain, limit);
 
-
-    let tmpTokeInDecimals: string = '0';
-    for (let x = 1; x < tokenDecimals; x++) { tmpTokeInDecimals += '0' } // ADDING 0'S FOR CONVERSION
-
     async function run() {
         const api = await ApiPromise.create({ provider: wsProvider });
 
         await cryptoWaitReady();
-        const transferValue = amount.toString() + tmpTokeInDecimals // tEDG to EDG
+        const transferValue = amount * 1e18 // EDG to weiEDG
         let account;
         if (mnemonic) account = keyring.addFromUri(mnemonic);
 
         try {
             if (address && account) {
                 let bal: any = await api.query.system.account(account.address)
-                console.log({MyBalance: bal.data.free})
-                if (Number(bal.data.free) > 0) {
+                console.log("bal: ", Number(bal.data.free), "amount: ", transferValue)
+                if (Number(bal.data.free) > 0 && Number(bal.data.free) > transferValue) {
                     const txHash = await api.tx.balances
-                        .transfer(address.toString(), transferValue)
+                        .transfer(address.toString(), transferValue.toString())
                         .signAndSend(account);
                     await storage.saveData(sender, address, chain);
                     let bal: any = await api.query.system.account(account.address)
@@ -109,8 +110,7 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
             if (address && checkAddress(address.toString(), networkPrefix)[0]) {
                 const hash = await run();
                 if (hash === -1) {
-                    res.json({ trxHash: hash, msg: `Sorry the faucet ran out of test EDG` });
-    
+                    res.json({ trxHash: hash, msg: `Sorry! Insufficient test EDG balance in the faucet` });    
                 } else {
                     res.json({ trxHash: hash, msg: `${amount} tEDG transferred to ${address}` });
                 }
