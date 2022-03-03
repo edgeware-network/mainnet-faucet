@@ -32,9 +32,12 @@ export default function Body(props) {
       )
         .then((res) => res.json())
         .then((res) => {
-          if (res.msg !== '') {
+          if (res.msg && res.msg !== '') {
             alert(res.msg);
+          } else {
+            alert('Error: Something went wrong.');
           }
+          console.log(res);
         })
         .catch((error) => {
           alert('Error: We are sorry, something went wrong on our side.');
