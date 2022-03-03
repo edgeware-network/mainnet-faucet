@@ -5,7 +5,7 @@ This project serves as frontend for beresheet faucet you can find the backend [h
 ## Pre-requisites
 - An account address on Edgeware
 
-Currently, the app can be used on https://beresheet-faucet.vercel.app/ , but the domain is likely to change and shall be updated here.
+Currently, the app can be used on https://faucet-beresheet.vercel.app/ , but the domain is likely to change and shall be updated here.
 
 ## Getting Started
 
