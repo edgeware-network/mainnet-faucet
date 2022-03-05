@@ -5,6 +5,8 @@ import './Body.css';
 import logo from '../assets/logo.png';
 import infoIcon from '../assets/Info.png';
 import copyIcon from '../assets/copy.png';
+import logEvent from '../utils/logEvent';
+import constant from '../constants';
 
 export default function Body(props) {
   const [address, setAddress] = useState('');
@@ -27,6 +29,7 @@ export default function Body(props) {
     }
     setLoading(true);
     const chain = 'beresheet';
+    logEvent(constant.log.REQUEST_EDG_CALLED, {address, chain, amount});
     trackPromise(
       fetch(
         `https://beresheet-faucet.herokuapp.com/api/sendTokens?address=${address}&chain=${chain}&amount=${amount}`,
@@ -35,12 +38,15 @@ export default function Body(props) {
         .then((res) => {
           if (res.msg && res.msg !== '') {
             alert(res.msg);
+            logEvent(constant.log.REQUEST_EDG_SUCCEED, {address, chain, amount});
           } else {
+            logEvent(constant.log.REQUEST_EDG_FAILED, 'ERROR: res or res.msg is null');
             alert('Error: Something went wrong.');
           }
           console.log(res);
         })
         .catch((error) => {
+          logEvent(constant.log.REQUEST_EDG_FAILED, {error});
           alert('Error: We are sorry, something went wrong on our side.');
           console.log(error);
         })
@@ -71,15 +77,18 @@ export default function Body(props) {
 
   async function getFaucetBalance() {
     setLoadingBalance(true);
+    logEvent(constant.log.GET_BALANCE_CALLED, {});
     await fetch('https://beresheet-faucet.herokuapp.com/api/faucetinfo')
         .then((res) => res.json())
         .then((res: any) => {
           setFaucetBalance(res.balance ? res.balance : 0);
           setFaucetAddress(res.address ? res.address : faucetAddress);
           setLimit(res.max ? res.max : 10);
+          logEvent(constant.log.GET_BALANCE_SUCCEED, {balance: res?.balance});
         })
         .catch((err) => {
           console.log(err);
+          logEvent(constant.log.GET_BALANCE_FAILED, {error: err});
         })
         .finally(() => {
           setLoadingBalance(false);
