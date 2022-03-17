@@ -1234,6 +1234,11 @@
   dependencies:
     "moment-timezone" "^0.5.x"
 
+"crypto-js@^3.1.6":
+  "integrity" "sha512-DIT51nX0dCfKltpRiXV+/TVZq+Qq2NgF4644+K7Ttnla7zEzqc+kjJyiB96BHNyUTBxyjzRcZYpUdZa+QAqi6Q=="
+  "resolved" "https://registry.npmjs.org/crypto-js/-/crypto-js-3.3.0.tgz"
+  "version" "3.3.0"
+
 "crypto-random-string@^2.0.0":
   "integrity" "sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA=="
   "resolved" "https://registry.npmjs.org/crypto-random-string/-/crypto-random-string-2.0.0.tgz"
@@ -1626,6 +1631,13 @@
   "integrity" "sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc="
   "resolved" "https://registry.npmjs.org/etag/-/etag-1.8.1.tgz"
   "version" "1.8.1"
+
+"ethereum-address@^0.0.4":
+  "integrity" "sha1-kXKbK8igBEu+4sBcz20EF5U+X5U="
+  "resolved" "https://registry.npmjs.org/ethereum-address/-/ethereum-address-0.0.4.tgz"
+  "version" "0.0.4"
+  dependencies:
+    "crypto-js" "^3.1.6"
 
 "eventemitter2@^5.0.1", "eventemitter2@~5.0.1", "eventemitter2@5.0.1":
   "integrity" "sha1-YZegldX7a1folC9v1+qtY6CclFI="

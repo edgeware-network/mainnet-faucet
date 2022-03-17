@@ -1,9 +1,12 @@
 import { WsProvider, Keyring, ApiPromise } from '@polkadot/api';
 import { cryptoWaitReady, checkAddress } from '@polkadot/util-crypto';
+import { u8aToHex, hexToU8a, stringToU8a, u8aConcat } from '@polkadot/util';
+import { blake2AsU8a } from '@polkadot/util-crypto/blake2';
 import express, { Request, Response, NextFunction } from 'express';
 import { config } from 'dotenv';
-import expressip from 'express-ip'
-import Storage from '../storage'
+import expressip from 'express-ip';
+import Storage from '../storage';
+import ethereum_address from 'ethereum-address';
 
 const router = express.Router();
 router.use(expressip().getIpInfoMiddleware);
@@ -11,11 +14,22 @@ config();
 const storage = new Storage();
 const keyring = new Keyring({ type: 'sr25519' });
 
+function checkAndConvertEthAddressToSubstrateAddress(address) {
+    if(ethereum_address.isAddress(address)) {
+        const addr = hexToU8a(address);
+        const data = stringToU8a('evm:');
+        const res = blake2AsU8a(u8aConcat(data, addr));
+        return res;
+    }
+    return keyring.decodeAddress(address);
+}
+
 function changeAddressEncoding(address, toNetworkPrefix=42){
     if(!address) {
         return null;
     }
-    const pubKey = keyring.decodeAddress(address);
+
+    const pubKey = checkAndConvertEthAddressToSubstrateAddress(address);
     const encodedAddress = keyring.encodeAddress(pubKey, toNetworkPrefix);
 
     if(encodedAddress == process.env.ADDRESS) {
