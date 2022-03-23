@@ -52,12 +52,16 @@ The app is now ready to be deployed!
 
 Please submit pull requests to us using the format described while making a pull request.
 
-## Authors
+## Authors and Maintainers
 
 * **Sayan Kar**
 * **Raj Ranjan**
 * **Sameer Kumar Kushwaha**
 * **Nimish Agraval**
+
+## Authors
+
+* **Furqan Ahmed** 
 
 See also the list of [contributors](https://github.com/nblogist/beresheet-faucet-frontend/contributors) who participated in this project.
 
