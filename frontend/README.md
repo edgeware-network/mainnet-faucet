@@ -1,6 +1,6 @@
 # Edgeware Testnet Faucet - Beresheet 
 
-This project serves as frontend for beresheet faucet you can find the backend [here](https://github.com/edgeware-builders/beresheet-faucet-backend), which can be used to obtain test EDG for development purposes, like deploying contracts.
+This project serves as frontend for beresheet faucet you can find the backend [here](https://github.com/kushwahasameerkumar/beresheet-faucet-backend), which can be used to obtain test EDG for development purposes, like deploying contracts.
 
 ## Pre-requisites
 - An account address on Edgeware
@@ -54,7 +54,10 @@ Please submit pull requests to us using the format described while making a pull
 
 ## Authors
 
-* **Furqan Ahmed** - [Contact](https://www.flow.page/FurqanAhmed)
+* **Sayan Kar**
+* **Raj Ranjan**
+* **Sameer Kumar Kushwaha**
+* **Nimish Agraval**
 
 See also the list of [contributors](https://github.com/nblogist/beresheet-faucet-frontend/contributors) who participated in this project.
 
