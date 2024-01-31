@@ -32,11 +32,11 @@ class Storage {
         return new Promise((resolve, reject) => {
             this._db.on('compaction.done', () => {
                 this._db.removeAllListeners('compaction.done');
-                resolve();
+                resolve(true);
             });
 
             setTimeout(() => {
-                resolve();
+                resolve(true);
             }, CompactionTimeout);
         });
     }
@@ -69,7 +69,7 @@ class Storage {
         return new Promise((resolve, reject) => {
             this._db.insert({ item, timestamp }, (err) => {
                 if (err) reject(err);
-                resolve();
+                resolve(true);
             });
         });
     }
