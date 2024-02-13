@@ -1,9 +1,6 @@
 import './LoadEnv'; // Must be the first import
-import app from './Server';
-import logger from './shared/Logger';
+import { VercelRequest, VercelResponse } from '@vercel/node';
 
-// Start the server
-const port = Number(process.env.PORT || 9000);
-app.listen(port, () => {
-    logger.info('Express server started on port: ' + port);
-});
+export default async (req: VercelRequest, res: VercelResponse) => {
+    res.send('Serverless function is working properly');
+};

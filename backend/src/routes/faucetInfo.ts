@@ -6,7 +6,7 @@ config();
 const router = express.Router();
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
-    const URL_TEST_NET = process.env.URL_TEST_NET || 'ws://beresheet1.edgewa.re:9944';
+    const URL_TEST_NET = process.env.URL_TEST_NET || 'wss://beresheet.jelliedowl.net';
     const wsProvider = new WsProvider(URL_TEST_NET);
     const api = await ApiPromise.create({ provider: wsProvider });
     let bal: any = await api.query.system.account(process.env.ADDRESS)

@@ -24,7 +24,7 @@ function checkAndConvertEthAddressToSubstrateAddress(address) {
     return keyring.decodeAddress(address);
 }
 
-function changeAddressEncoding(address, toNetworkPrefix=42){
+function changeAddressEncoding(address, toNetworkPrefix=7){
     if(!address) {
         return null;
     }
@@ -55,9 +55,9 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
     let { chain, amount } = req.query;
 
     const sender = req.ipInfo.ip;
-    const URL_TEST_NET = process.env.URL_TEST_NET || 'ws://beresheet1.edgewa.re:9944';
+    const URL_TEST_NET = process.env.URL_TEST_NET || 'wss://beresheet.jelliedowl.net';
     const tokenDecimals = Number(process.env.TOKEN_DECIMALS) || 18;
-    
+
     const limit = Number(process.env.REQUEST_LIMIT) || 3;
     const mnemonic = process.env.FAUCET_ACCOUNT_MNEMONIC?.toString();
     const wsProvider = new WsProvider(URL_TEST_NET);
@@ -76,7 +76,7 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
             break;
         case 'edgeware-local':
         case 'beresheet':
-            networkPrefix = 42;
+            networkPrefix = 7;
             break
         default:
             networkPrefix = -1;
@@ -124,7 +124,7 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
             if (address && checkAddress(address.toString(), networkPrefix)[0]) {
                 const hash = await run();
                 if (hash === -1) {
-                    res.json({ trxHash: hash, msg: `Sorry! Insufficient test EDG balance in the faucet` });    
+                    res.json({ trxHash: hash, msg: `Sorry! Insufficient test EDG balance in the faucet` });
                 } else {
                     res.json({ trxHash: hash, msg: `${amount} tEDG transferred to ${address}` });
                 }
@@ -138,4 +138,3 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
 });
 
 export default router;
-

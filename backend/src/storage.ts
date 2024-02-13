@@ -22,8 +22,8 @@ const sha256 = (x: any) =>
 
 class Storage {
     _db: Datastore<any>;
-    constructor(filename = './storage.db', autoload = true) {
-        this._db = new Datastore({ filename, autoload });
+    constructor() {
+        this._db = new Datastore();
     }
 
     async close() {
