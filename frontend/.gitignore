@@ -47,8 +47,9 @@ typings/
 # TypeScript cache
 *.tsbuildinfo
 
-# Optional npm cache directory
+# Optional npm cache
 .npm
+package-lock.json
 
 # Optional eslint cache
 .eslintcache
@@ -104,3 +105,17 @@ dist
 .tern-port
 
 .vercel
+
+# OS X
+.DS_Store*
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+*~

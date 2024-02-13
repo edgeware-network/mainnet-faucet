@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { trackPromise } from 'react-promise-tracker';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import './Body.css';
 import logo from '../assets/logo.png';
 import infoIcon from '../assets/Info.png';
@@ -12,9 +12,9 @@ export default function Body(props) {
   const [address, setAddress] = useState('');
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(false);
-  const [faucetBalance, setFaucetBalance] = useState('0 tEDG');
+  const [faucetBalance, setFaucetBalance] = useState(0);
   const [limit, setLimit] = useState(10);
-  const [faucetAddress, setFaucetAddress] = useState('5FqJAzaUYtPFYKeo7mRKweTfLCQKKdeHgNft7eRSgcPV1fXq');
+  const [faucetAddress, setFaucetAddress] = useState('nJvnbNuabPyqFVqUwgDbD5nxBT9mBKMv1qhCA25esiRJ1Wn');
   const [loadingBalance, setLoadingBalance] = useState(false);
 
   function callAPI() {
@@ -32,7 +32,7 @@ export default function Body(props) {
     logEvent(constant.log.REQUEST_EDG_CALLED, {address, chain, amount});
     trackPromise(
       fetch(
-        `https://beresheet-faucet.herokuapp.com/api/sendTokens?address=${address}&chain=${chain}&amount=${amount}`,
+        `/api/sendTokens?address=${address}&chain=${chain}&amount=${amount}`,
       )
         .then((res) => res.json())
         .then((res) => {
@@ -63,7 +63,7 @@ export default function Body(props) {
     setAddress(e.target.value);
   };
 
-  const handleAmountChnage = (e: any) => {
+  const handleAmountChange = (e: any) => {
     if (!isNaN(e.target.value)) setAmount(e.target.value);
   };
 
@@ -75,29 +75,32 @@ export default function Body(props) {
     navigator.clipboard.writeText(faucetAddress);
   }
 
-  async function getFaucetBalance() {
-    setLoadingBalance(true);
-    logEvent(constant.log.GET_BALANCE_CALLED, {});
-    await fetch('https://beresheet-faucet.herokuapp.com/api/faucetinfo')
-        .then((res) => res.json())
-        .then((res: any) => {
-          setFaucetBalance(res.balance ? res.balance : 0);
-          setFaucetAddress(res.address ? res.address : faucetAddress);
-          setLimit(res.max ? res.max : 10);
-          logEvent(constant.log.GET_BALANCE_SUCCEED, {balance: res?.balance});
-        })
-        .catch((err) => {
-          console.log(err);
-          logEvent(constant.log.GET_BALANCE_FAILED, {error: err});
-        })
-        .finally(() => {
-          setLoadingBalance(false);
-        });
-  }
+  const getFaucetBalance = useCallback(async () => {
+  setLoadingBalance(true);
+  logEvent(constant.log.GET_BALANCE_CALLED, {});
+  await fetch('/api/faucetInfo')
+    .then((res) => res.json())
+    .then((res) => {
+      const parsedBalance = parseFloat(res.balance.replace(/,/g, ''));
+      const tokenDecimals = parseInt(process.env.TOKEN_DECIMALS || '18', 10);
+      const readableBalance = parseFloat((parsedBalance * Math.pow(10, -tokenDecimals)).toFixed(3));
+      setFaucetBalance(readableBalance);
+      setFaucetAddress(res.address ? res.address : faucetAddress);
+      setLimit(res.max ? res.max : 10);
+      logEvent(constant.log.GET_BALANCE_SUCCEED, {balance: readableBalance});
+    })
+    .catch((err) => {
+      console.log(err);
+      logEvent(constant.log.GET_BALANCE_FAILED, {error: err});
+    })
+    .finally(() => {
+      setLoadingBalance(false);
+    });
+}, [faucetAddress]);
 
-  useEffect(() => {
-    getFaucetBalance();
-  }, []);
+useEffect(() => {
+  getFaucetBalance();
+}, [getFaucetBalance]);
 
   return (
     <div className="pageBackground">
@@ -114,7 +117,7 @@ export default function Body(props) {
                   className="input"
                   placeholder="Amount"
                   id="Amount"
-                  onChange={handleAmountChnage}
+                  onChange={handleAmountChange}
                   value={amount}
                 ></input>
                 <div className="maxButton" onClick={getMax}>
@@ -139,7 +142,7 @@ export default function Body(props) {
           <div className="lowerContainer">
             <div className="faucetBalance">
               Faucet Balance:
-              <div className="balanceValue">{loadingBalance ? <div className='loader'></div>: faucetBalance}</div>
+              <div className="balanceValue">{loadingBalance ? <div className='loader'></div>: `${faucetBalance} tEDG`}</div>
             </div>
             <div className="note">
               To keep this faucet alive, you can donate your excess tokens on
@@ -150,7 +153,7 @@ export default function Body(props) {
                   <span className="textWrap">
                     This faucet is powered by the <b>EDGEWARE</b> community, and
                     constantly need support from the community. If you have
-                    unused <b>EDG</b> tokens on your <b>Beresheet</b> wallet,
+                    unused <b>tEDG</b> tokens on your <b>Beresheet</b> wallet,
                     then please donate the excess amount to the below address.{' '}
                     <b>Thank you for using this faucet!</b>
                   </span>
