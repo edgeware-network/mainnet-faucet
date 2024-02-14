@@ -41,7 +41,7 @@ function checkAmount(amount: string): {
     checkAmountIsValid: boolean;
     validAmount?: number;
 } {
-    const MAX_EDG = Number(process.env.MAX_EDG) || 10;
+    const MAX_EDG = Number(process.env.MAX_EDG) || 1;
     const numericAmount = Number(amount);
 
     if (isNaN(numericAmount)) {
@@ -65,7 +65,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         let { chain, amount } = req.query;
         amount = typeof amount === 'string' ? amount : "0"; // Default amount to "0" if not a string
 
-        const URL_TEST_NET = process.env.URL_TEST_NET || 'wss://beresheet.jelliedowl.net';
+        const URL_TEST_NET = process.env.URL_TEST_NET || 'wss://edgeware.jelliedowl.net';
         const wsProvider = new WsProvider(URL_TEST_NET);
 
         let networkPrefix;
@@ -127,9 +127,9 @@ export default async (req: VercelRequest, res: VercelResponse) => {
                 if (address && checkAddress(address, networkPrefix)[0]) {
                     const hash = await run();
                     if (hash === -1) {
-                        res.json({ trxHash: hash, msg: `Sorry! Insufficient test EDG balance in the faucet` });
+                        res.json({ trxHash: hash, msg: `Sorry! Insufficient EDG balance in the faucet` });
                     } else {
-                        res.json({ trxHash: hash, msg: `${validAmount} tEDG transferred to ${address}` });
+                        res.json({ trxHash: hash, msg: `${validAmount} EDG transferred to ${address}` });
                     }
                 } else {
                     res.json({ trxHash: -1, msg: 'Address not valid against the chain' });

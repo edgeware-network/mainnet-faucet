@@ -1,6 +1,6 @@
-# Edgeware Testnet Faucet - Beresheet - Backend
+# Edgeware Mainnet Faucet - Backend
 
-This project serves as backend for beresheet faucet you can find the frontend [here](https://github.com/edgeware-builders/beresheet-faucet-frontend), which can be used to obtain test EDG for development purposes, like deploying contracts.
+This project serves as backend for Edgeware mainnet faucet you can find the original frontend [here](https://github.com/edgeware-builders/beresheet-faucet-frontend), which can be used to obtain EDG for development purposes, like deploying contracts.
 
 Define the following environment variables or simply save them in a `.env` file inside the main folder:
 
@@ -8,7 +8,7 @@ Define the following environment variables or simply save them in a `.env` file 
 TOKENS_TO_PAY_PER_REQUEST = 10
 REQUEST_LIMIT= 3
 LIMIT_UNIT = DAY # MIN | HOUR | DAY - Defaults to DAY
-FAUCET_ACCOUNT_MNEMONIC = '' # Mnemonic for account with Test EDG - will be used as dispenser
+FAUCET_ACCOUNT_MNEMONIC = '' # Mnemonic for account with EDG - will be used as dispenser
 URL_TEST_NET= 'ws://127.0.0.1:9944' # For edgeware local node see: https://github.com/edgeware-network/edgeware-node
 TOKEN_DECIMALS = 18
 NETWORK_PREFIX = 7
@@ -16,7 +16,7 @@ NODE_ENV = 'production'
 ```
 
 ## Pre-requisites
-- An account on Edgeware with Test EDG - or local node running (for local edgeware blockcahin)
+- An account on Edgeware with EDG - or local node running (for local edgeware blockcahin)
 
 ## Getting Started
 

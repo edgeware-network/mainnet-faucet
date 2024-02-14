@@ -1,5 +1,5 @@
 {
-  "name": "beresheet-faucet",
+  "name": "edgeware-faucet",
   "private": true,
   "workspaces": [
     "frontend",

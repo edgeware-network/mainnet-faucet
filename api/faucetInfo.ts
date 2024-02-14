@@ -5,7 +5,7 @@ import { config } from 'dotenv';
 config();
 
 export default async (req: VercelRequest, res: VercelResponse) => {
-    const URL_TEST_NET = process.env.URL_TEST_NET || 'wss://beresheet.jelliedowl.net';
+    const URL_TEST_NET = process.env.URL_TEST_NET || 'wss://edgeware.jelliedowl.net';
     const wsProvider = new WsProvider(URL_TEST_NET);
     const api = await ApiPromise.create({ provider: wsProvider });
     let bal: any = await api.query.system.account(process.env.ADDRESS);

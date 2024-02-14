@@ -39,7 +39,7 @@ function changeAddressEncoding(address, toNetworkPrefix=7){
 }
 
 function checkAmount(amount) {
-    const MAX_EDG = (process.env.MAX_EDG || 10);
+    const MAX_EDG = (process.env.MAX_EDG || 1);
     amount = Number(amount);
     if(isNaN(amount)) {
         return {checkAmountMessage: "Amount should be a number!", checkAmountIsValid: false}
@@ -55,7 +55,7 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
     let { chain, amount } = req.query;
 
     const sender = req.ipInfo.ip;
-    const URL_TEST_NET = process.env.URL_TEST_NET || 'wss://beresheet.jelliedowl.net';
+    const URL_TEST_NET = process.env.URL_TEST_NET || 'wss://edgeware.jelliedowl.net';
     const tokenDecimals = Number(process.env.TOKEN_DECIMALS) || 18;
 
     const limit = Number(process.env.REQUEST_LIMIT) || 3;
@@ -124,9 +124,9 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
             if (address && checkAddress(address.toString(), networkPrefix)[0]) {
                 const hash = await run();
                 if (hash === -1) {
-                    res.json({ trxHash: hash, msg: `Sorry! Insufficient test EDG balance in the faucet` });
+                    res.json({ trxHash: hash, msg: `Sorry! Insufficient EDG balance in the faucet` });
                 } else {
-                    res.json({ trxHash: hash, msg: `${amount} tEDG transferred to ${address}` });
+                    res.json({ trxHash: hash, msg: `${amount} EDG transferred to ${address}` });
                 }
             } else {
                 res.json({ trxHash: -1, msg: 'Address not valid against the chain' })

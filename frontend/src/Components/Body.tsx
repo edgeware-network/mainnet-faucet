@@ -28,7 +28,7 @@ export default function Body(props) {
       return;
     }
     setLoading(true);
-    const chain = 'beresheet';
+    const chain = 'edgeware';
     logEvent(constant.log.REQUEST_EDG_CALLED, {address, chain, amount});
     trackPromise(
       fetch(
@@ -86,7 +86,7 @@ export default function Body(props) {
       const readableBalance = parseFloat((parsedBalance * Math.pow(10, -tokenDecimals)).toFixed(3));
       setFaucetBalance(readableBalance);
       setFaucetAddress(res.address ? res.address : faucetAddress);
-      setLimit(res.max ? res.max : 10);
+      setLimit(res.max ? res.max : 1);
       logEvent(constant.log.GET_BALANCE_SUCCEED, {balance: readableBalance});
     })
     .catch((err) => {
@@ -109,7 +109,7 @@ useEffect(() => {
           <div className="upperContainer">
             <div className="headerContainer">
               <img className="logo" src={logo} alt="logo" />
-              <div className="header">Beresheet Faucet</div>
+              <div className="header">Edgeware Faucet</div>
             </div>
             <div className="inputFormContainer">
               <div className="field">
@@ -142,7 +142,7 @@ useEffect(() => {
           <div className="lowerContainer">
             <div className="faucetBalance">
               Faucet Balance:
-              <div className="balanceValue">{loadingBalance ? <div className='loader'></div>: `${faucetBalance} tEDG`}</div>
+              <div className="balanceValue">{loadingBalance ? <div className='loader'></div>: `${faucetBalance} EDG`}</div>
             </div>
             <div className="note">
               To keep this faucet alive, you can donate your excess tokens on
@@ -153,8 +153,8 @@ useEffect(() => {
                   <span className="textWrap">
                     This faucet is powered by the <b>EDGEWARE</b> community, and
                     constantly need support from the community. If you have
-                    unused <b>tEDG</b> tokens on your <b>Beresheet</b> wallet,
-                    then please donate the excess amount to the below address.{' '}
+                    spare <b>EDG</b> tokens in your <b>Edgeware</b> wallet,
+                    then please donate the spare amount to the below address.{' '}
                     <b>Thank you for using this faucet!</b>
                   </span>
                 </div>

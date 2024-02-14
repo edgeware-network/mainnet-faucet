@@ -1,6 +1,6 @@
 # Edgeware Testnet Faucet - Beresheet
 
-This project serves as frontend for beresheet faucet you can find the backend [here](https://github.com/edgeware-network/beresheet-faucet-backend), which can be used to obtain test EDG for development purposes, like deploying contracts.
+This project serves as frontend for beresheet faucet you can find the backend [here](https://github.com/edgeware-network/beresheet-faucet-backend), which can be used to obtain EDG for development purposes, like deploying contracts.
 
 ## Pre-requisites
 - An account address on Beresheet (BereWASM or BereEVM)
